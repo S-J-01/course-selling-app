@@ -14,13 +14,6 @@ var adminAuthentication = (req, res, next) => {
   var password  = req.headers.password;
   console.log(req.body);
 
-  // var admin = ADMINS.find(obj => obj.username === username && obj.password === password);
-  // if (admin) {
-  //   req.admin=admin;
-  //   next();
-  // } else {
-  //   res.status(403).json({ message: 'Admin authentication failed' });
-  // }
   ADMIN.findOne({username:username, password:password})
   .then((admin)=>{
     if(admin){
