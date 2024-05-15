@@ -17,8 +17,26 @@ function Register(){
         setPassword(event.target.value)
     }
 
+    const config = {
+        method:'post',
+        url:'http://localhost:3000/admin/signup',
+        data:{
+            username:username,
+            password:password
+        }
+    }
     const onRegister = ()=>{
-        //enter code here
+        axios(config)
+         .then((response)=>{
+            console.log(response.data.message)
+            console.log(response.data.token)
+            localStorage.setItem('token' , response.data.token)
+            setUsername('')
+            setPassword('')
+            navigate('all-courses')
+         }).catch(err=>{
+            console.log(err)
+         })
     }
     
     return(
