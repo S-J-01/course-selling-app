@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+import { Button } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 
 function AllCourses(){
     
     const[courses,setCourses] = useState([])
-
+    const navigate = useNavigate()
     const authorizationToken = localStorage.getItem('token')
 
     const config = {
@@ -33,7 +35,25 @@ function AllCourses(){
         {courses.map((courseObj)=>{
             return(
                 <>
-
+                    Title:
+                    {courseObj.title}
+                    &nbsp;
+                    Description:
+                    {courseObj.description}
+                    &nbsp;
+                    Price:
+                    {courseObj.price}
+                    &nbsp;
+                    ImageLink:
+                    {courseObj.imageLink}
+                    &nbsp;
+                    Published:
+                    {courseObj.published}
+                    &nbsp;
+                    Course ID:
+                    {courseObj.courseID}
+                    &nbsp;
+                    <Button variant="contained" onClick={()=> navigate(`/all-courses/${courseObj.courseID}`)}>Edit Course</Button>
                 </>
             )
         })}

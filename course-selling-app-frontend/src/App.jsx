@@ -6,6 +6,7 @@ import Login from './components/Login'
 import AllCourses from './components/AllCourses'
 import Navbar from './components/Navbar'
 import CreateCourse from './components/CreateCourse'
+import EditCourse from './components/EditCourse'
 
 function App() {
  
@@ -20,6 +21,7 @@ function App() {
         <Route element={<Navbar/>}>
         <Route path = '/all-courses' element={<AllCourses/>}></Route>
         <Route path = '/create-course' element={<CreateCourse/>}></Route>
+        <Route path = '/all-courses/:courseID' element={<EditCourse/>}></Route>
         </Route>
       </Routes>
     </>

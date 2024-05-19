@@ -46,7 +46,7 @@ function Register(){
         <TextField id="outlined-password-input" label="Password" type="password" value={password} onChange={handlePasswordChange}/>
         <Button variant="contained" onClick={onRegister}>Register</Button>
         <span>Already have an account?</span>
-        <Button onClick={()=>navigate('login')}>Login</Button>
+        <Button variant="contained" onClick={()=>navigate('login')}>Login</Button>
         </>
     )
 
