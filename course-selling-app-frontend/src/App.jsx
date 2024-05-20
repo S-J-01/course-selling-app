@@ -18,11 +18,11 @@ function App() {
         <Route path='/' element={<Register/>}></Route>
         <Route path = '/login' element={<Login/>}></Route>
         {/* The routes below will show the Navbar */}
-        <Route element={<Navbar/>}>
+        
         <Route path = '/all-courses' element={<AllCourses/>}></Route>
         <Route path = '/create-course' element={<CreateCourse/>}></Route>
         <Route path = '/all-courses/:courseID' element={<EditCourse/>}></Route>
-        </Route>
+        
       </Routes>
     </>
   )

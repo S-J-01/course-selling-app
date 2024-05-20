@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button } from "@mui/material"
+import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 
@@ -28,10 +29,11 @@ function AllCourses(){
             console.log(err)
          })
 
-    },[])
-    
+        },[])
+        
     return(
         <>
+        Inside return in all-courses
         {courses.map((courseObj)=>{
             return(
                 <>

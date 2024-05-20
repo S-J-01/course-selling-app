@@ -11,7 +11,7 @@ return(
     <>
     <nav>
         <ul>
-            <li>
+            <li> 
                 <Link to='all-courses'></Link>
             </li>
             <li>
