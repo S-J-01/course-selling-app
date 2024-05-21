@@ -35,7 +35,7 @@ function Login(){
             localStorage.setItem('token',response.data.token)
             setUsername('')
             setPassword('')
-            navigate('all-courses')
+            navigate('/all-courses')
          })
          .catch(err=>{
             console.log(err)

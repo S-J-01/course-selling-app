@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
@@ -32,11 +32,10 @@ function AllCourses(){
         },[])
         
     return(
-        <>
-        Inside return in all-courses
-        {courses.map((courseObj)=>{
+        <Box>
+         {courses.map((courseObj)=>{
             return(
-                <>
+                <Box key={courseObj.courseID}>
                     Title:
                     {courseObj.title}
                     &nbsp;
@@ -56,11 +55,11 @@ function AllCourses(){
                     {courseObj.courseID}
                     &nbsp;
                     <Button variant="contained" onClick={()=> navigate(`/all-courses/${courseObj.courseID}`)}>Edit Course</Button>
-                </>
+                </Box>
             )
         })}
 
-        </>
+        </Box>
     )
 }
 
