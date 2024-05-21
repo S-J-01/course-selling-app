@@ -7,12 +7,14 @@ import AllCourses from './components/AllCourses'
 import Navbar from './components/Navbar'
 import CreateCourse from './components/CreateCourse'
 import EditCourse from './components/EditCourse'
+import { Box } from '@mui/material'
 
 function App() {
  
 
   return (
     <>
+      
       
       <Routes>
         <Route path='/' element={<Register/>}></Route>
@@ -24,6 +26,7 @@ function App() {
         <Route path = '/all-courses/:courseID' element={<EditCourse/>}></Route>
         
       </Routes>
+      
     </>
   )
 }
