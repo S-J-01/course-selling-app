@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Box, Button } from "@mui/material"
+import { Box, Button,Paper } from "@mui/material"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
@@ -32,32 +32,102 @@ function AllCourses(){
         },[])
         
     return(
-        <Box>
+        <Box
+         sx={{
+            display:'flex',
+            flexDirection:'row',
+            width:'100vw',
+            height:'100vh',
+            margin:0,
+            padding:0,
+            border:'1px solid black',
+            justifyContent:'flex-start',
+            alignContent:'flex-start',
+            flexWrap:'wrap'
+         }}
+        >
          {courses.map((courseObj)=>{
             return(
-                <Box key={courseObj.courseID}>
-                    Title:
-                    {courseObj.title}
-                    &nbsp;
-                    Description:
-                    {courseObj.description}
-                    &nbsp;
-                    Price:
-                    {courseObj.price}
-                    &nbsp;
-                    ImageLink:
-                    {courseObj.imageLink}
-                    &nbsp;
-                    Published:
-                    {courseObj.published}
-                    &nbsp;
-                    Course ID:
-                    {courseObj.courseID}
-                    &nbsp;
-                    <Button variant="contained" onClick={()=> navigate(`/all-courses/${courseObj.courseID}`)}>Edit Course</Button>
-                </Box>
-            )
-        })}
+                    <Box key={courseObj.courseID}
+                         sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            border:'1px solid black',
+                            flexWrap:'wrap',
+                            margin:10,
+                            gap:2,
+                            boxShadow:15
+                         }}
+                    >   
+
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        
+                        <img src={`${courseObj.imageLink}`}></img>
+                       
+                        </Box>
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        Title:&nbsp;&nbsp;
+                        {courseObj.title}
+                        
+                        </Box>
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        Description:&nbsp;&nbsp;
+                        {courseObj.description}
+                        
+                        </Box>
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        Price:&nbsp;&nbsp;
+                        {courseObj.price}
+                        
+                        </Box>
+
+                        
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        Published:&nbsp;&nbsp;
+                        {courseObj.published?'Yes':'No'}
+                        
+                        </Box>
+
+                        <Box
+                            sx={{
+                                textAlign:'left'
+                            }}
+                        >
+                        Course ID:&nbsp;&nbsp;
+                        {courseObj.courseID}
+                        
+                        </Box>
+
+
+                        <Button variant="contained" onClick={()=> navigate(`/all-courses/${courseObj.courseID}`)}>Edit Course</Button>
+                    </Box>
+                )
+            })}
 
         </Box>
     )
