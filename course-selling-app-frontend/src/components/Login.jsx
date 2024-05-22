@@ -3,6 +3,8 @@ import {Button} from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
 function Login(){
 
     const navigate = useNavigate();
@@ -35,20 +37,63 @@ function Login(){
             localStorage.setItem('token',response.data.token)
             setUsername('')
             setPassword('')
-            navigate('/all-courses')
+            navigate('all-courses')
          })
          .catch(err=>{
             console.log(err)
          })
     }
     return(
-        <>
-        <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange}/>
-        <TextField id="outlined-password-input" label="Password" type="password" value={password} onChange={handlePasswordChange}/>
-        <Button variant="contained" onClick={onLogin}>Login</Button>
-        <span>Don't have an account yet?</span>
-        <Button variant="contained" onClick={()=>navigate('/')}>Register</Button>
-        </>
+        <Box
+        sx={{
+            display:'flex',
+            width:'100vw',
+            height:'100vh',
+            margin:0,
+            padding:0,
+            boxSizing:'border-box',
+            justifyContent:'center',
+            alignItems:'center',
+            border:'1px solid black',
+            flexDirection:'column',
+            gap:6
+            
+         }}
+        >
+
+            <Box
+            sx={{
+                border:'1px solid black',
+                width:'80vw',
+                textAlign:'center',
+                }}
+            >
+                
+                <Typography variant="h1" gutterBottom>
+                    Course Selling Application
+                </Typography>
+            </Box>
+            
+            
+            <Box
+                sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                    border:'1px solid black',
+                    gap:4,
+                    width:'50vw'
+                 }}
+            >   
+                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange}/>
+                <TextField id="outlined-password-input" label="Password" type="password" value={password} onChange={handlePasswordChange}/>
+                <Button variant="contained" onClick={onLogin}>Login</Button>
+                <span>Don't have an account yet? <Button onClick={()=>navigate('/')}>Register</Button></span>
+                
+                
+
+            </Box>
+        
+        </Box>
     )
 }
 
