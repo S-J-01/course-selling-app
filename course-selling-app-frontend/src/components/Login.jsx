@@ -81,7 +81,8 @@ function Login(){
                     flexDirection:'column',
                     border:'1px solid black',
                     gap:4,
-                    width:'50vw'
+                    width:'50vw',
+                    boxShadow:15
                  }}
             >   
                 <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange}/>

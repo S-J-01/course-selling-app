@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { Button, TextField } from "@mui/material"
 import axios from "axios"
+import Box from "@mui/material/Box"
 
 
 function EditCourse(){
@@ -69,17 +70,42 @@ function EditCourse(){
     }
 
     return (
-        <>
-        <TextField id="outlined-basic" label="New Title" variant="outlined" value={newTitle} onChange={handleNewTitleChange}/>
-        <TextField id="outlined-basic" label="New Description" variant="outlined" value={newDescription} onChange={handleNewDescriptionChange}/>
-        <TextField id="outlined-basic" label="New Price" variant="outlined" value={newPrice} onChange={handleNewPriceChange}/>
-        <TextField id="outlined-basic" label="New Image Link" variant="outlined" value={newImageLink} onChange={handleNewImageLinkChange}/>
-        <TextField id="outlined-basic" label="New Published" variant="outlined" value={newPublished} onChange={handleNewPublishedChange}/>
-        <Button variant="contained" onClick={onSubmit}>Submit</Button>
+        <Box
+         sx={{
+            display:'flex',
+            flexDirection: 'column',
+            justifyContent:'center',
+            alignContent:'center',
+            border:'1px solid black',
+            width:'100vw',
+            height:'100vh',
+            flexWrap:'wrap'
+        
+        
+
+         }}
+        >
+            
+            <Box
+             sx={{
+                display:'flex',
+                flexDirection:'column',
+                border:'1px solid black',
+                width:'50vw',
+                gap:4,
+                boxShadow:15
+             }}
+            >      
+                <TextField id="outlined-basic" label="New Title" variant="outlined" value={newTitle} onChange={handleNewTitleChange}/>
+                <TextField id="outlined-basic" label="New Description" variant="outlined" value={newDescription} onChange={handleNewDescriptionChange}/>
+                <TextField id="outlined-basic" label="New Price" variant="outlined" value={newPrice} onChange={handleNewPriceChange}/>
+                <TextField id="outlined-basic" label="New Image Link" variant="outlined" value={newImageLink} onChange={handleNewImageLinkChange}/>
+                <TextField id="outlined-basic" label="New Published" variant="outlined" value={newPublished} onChange={handleNewPublishedChange}/>
+                <Button variant="contained" onClick={onSubmit}>Submit Changes</Button>
+            </Box>
 
 
-
-        </>
+        </Box>
     )
 }
 

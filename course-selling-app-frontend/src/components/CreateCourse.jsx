@@ -2,6 +2,7 @@ import { useState } from "react"
 import { TextField } from "@mui/material"
 import {Button} from "@mui/material"
 import axios from "axios"
+import Box from "@mui/material/Box"
 function CreateCourse (){
     
     const[title, setTitle] = useState('')
@@ -66,15 +67,38 @@ function CreateCourse (){
     }
     
     return(
-        <>
-        <TextField id="outlined-basic" label="Title" variant="outlined" value={title} onChange={handleTitleChange}/>
-        <TextField id="outlined-basic" label="Description" variant="outlined" value={description} onChange={handleDescriptionChange}/>
-        <TextField id="outlined-basic" label="Price" variant="outlined" value={price} onChange={handlePriceChange}/>
-        <TextField id="outlined-basic" label="Image Link" variant="outlined" value={imageLink} onChange={handleImageLinkChange}/>
-        <TextField id="outlined-basic" label="Published" variant="outlined" value={published} onChange={handlePublishedChange}/>
-        <Button variant="contained" onClick={onSubmit}>Submit</Button>
+        <Box
+         sx={{
+            display:'flex',
+            flexDirection: 'column',
+            justifyContent:'center',
+            alignContent:'center',
+            border:'1px solid black',
+            width:'100vw',
+            height:'100vh',
+            flexWrap:'wrap'
+         }}
+        >
 
-        </>
+            <Box
+             sx={{
+                display:'flex',
+                flexDirection:'column',
+                border:'1px solid black',
+                width:'50vw',
+                gap:4,
+                boxShadow:15
+             }}
+            >   
+                <TextField id="outlined-basic" label="Title" variant="outlined" value={title} onChange={handleTitleChange}/>
+                <TextField id="outlined-basic" label="Description" variant="outlined" value={description} onChange={handleDescriptionChange}/>
+                <TextField id="outlined-basic" label="Price" variant="outlined" value={price} onChange={handlePriceChange}/>
+                <TextField id="outlined-basic" label="Image Link" variant="outlined" value={imageLink} onChange={handleImageLinkChange}/>
+                <TextField id="outlined-basic" label="Published" variant="outlined" value={published} onChange={handlePublishedChange}/>
+                <Button variant="contained" onClick={onSubmit}>Create Course</Button>
+            </Box>
+        
+        </Box>
     )
 }
 
