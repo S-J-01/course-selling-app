@@ -80,8 +80,8 @@ function Register(){
                 boxShadow:15
              }}
             > 
-                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange}  />
-                <TextField id="outlined-password-input" label="Password" type="password" value={password} onChange={handlePasswordChange}/>
+                <TextField id="outlined-basic" label="Admin Username" variant="outlined" value={username} onChange={handleUsernameChange}  />
+                <TextField id="outlined-password-input" label="Admin Password" type="password" value={password} onChange={handlePasswordChange}/>
                 <Button variant="contained" onClick={onRegister}>Register</Button>
                 <span>Already have an account?<Button onClick={()=>navigate('login')}>Login</Button></span>
                 

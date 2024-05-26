@@ -85,8 +85,8 @@ function Login(){
                     boxShadow:15
                  }}
             >   
-                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange}/>
-                <TextField id="outlined-password-input" label="Password" type="password" value={password} onChange={handlePasswordChange}/>
+                <TextField id="outlined-basic" label="Admin Username" variant="outlined" value={username} onChange={handleUsernameChange}/>
+                <TextField id="outlined-password-input" label="Admin Password" type="password" value={password} onChange={handlePasswordChange}/>
                 <Button variant="contained" onClick={onLogin}>Login</Button>
                 <span>Don't have an account yet? <Button onClick={()=>navigate('/')}>Register</Button></span>
                 
