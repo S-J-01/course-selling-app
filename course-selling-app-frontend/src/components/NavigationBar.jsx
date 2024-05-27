@@ -12,8 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb'
+import Person2Icon from '@mui/icons-material/Person2';
 
-const pages = ['All Courses', 'Create Course', 'Edit Course'];
+const pages = ['All Courses', 'Create Course'];
 const settings = ['Profile','Logout'];
 
 function NavigationBar() {
@@ -39,26 +40,8 @@ function NavigationBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Course Selling Application
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
+            <Tooltip title='Menu'>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -69,6 +52,8 @@ function NavigationBar() {
             >
               <MenuIcon />
             </IconButton>
+            </Tooltip>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -84,7 +69,7 @@ function NavigationBar() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block' },
               }}
             >
               {pages.map((page) => (
@@ -94,7 +79,7 @@ function NavigationBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          
           <Typography
             variant="h5"
             noWrap
@@ -111,24 +96,33 @@ function NavigationBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CSA
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+
+          <Typography
+            variant="h3"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              border:'1px solid white',
+              mr: 2,
+              display: { xs: 'none',sm:'none', md: 'flex' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Course Selling Application
+          </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 ,size:'large',color:'inherit'}}>
+              <Person2Icon/>
               </IconButton>
             </Tooltip>
             <Menu
