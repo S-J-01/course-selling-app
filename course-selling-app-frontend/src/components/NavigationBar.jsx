@@ -13,14 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb'
 import Person2Icon from '@mui/icons-material/Person2';
-
+import { useNavigate } from 'react-router-dom';
 const pages = ['All Courses', 'Create Course'];
-const settings = ['Profile','Logout'];
+const settings = ['Logout'];
 
 function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  
+  const navigate = useNavigate();
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -36,11 +38,20 @@ function NavigationBar() {
     setAnchorElUser(null);
   };
 
+  const handleMenuItemNavigate=(page)=>{
+    const destinationRoute = `/${page.toLowerCase().replace(' ','-')}`
+    navigate(destinationRoute) 
+  }
+
+  const onLogout = ()=>{
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="100vw">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex'},border:'1px solid white' }}>
             <Tooltip title='Menu'>
             <IconButton
               size="large"
@@ -73,7 +84,7 @@ function NavigationBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={()=>handleMenuItemNavigate(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -94,6 +105,7 @@ function NavigationBar() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              textAlign: 'center'
             }}
           >
             CSA
@@ -104,16 +116,19 @@ function NavigationBar() {
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
+            
             sx={{
               border:'1px solid white',
+              textAlign:'center',
               mr: 2,
-              display: { xs: 'none',sm:'none', md: 'flex' },
+              display: { xs:'none',md: 'flex' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none',
+              textDecoration: 'none'
+              
             }}
           >
             Course Selling Application
@@ -121,7 +136,7 @@ function NavigationBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 ,size:'large',color:'inherit'}}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 ,size:'large',color:'inherit',border:'1px solid white'}}>
               <Person2Icon/>
               </IconButton>
             </Tooltip>
@@ -142,7 +157,7 @@ function NavigationBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={onLogout}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
