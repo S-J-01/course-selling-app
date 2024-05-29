@@ -164,6 +164,13 @@ app.get('/admin/courses',authenticateAdminJwtToken, (req, res) => {
   })
 });
 
+
+app.get('/admin/me',authenticateAdminJwtToken,(req,res)=>{
+ //logic to get the username if admin is logged in and render the navigation bar accordingly
+
+ var admin = req.admin
+ res.status(200).json({username:admin.username})
+})
 // User routes
 app.post('/users/signup', (req, res) => {
   // logic to sign up user
