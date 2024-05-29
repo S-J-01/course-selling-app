@@ -14,12 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb'
 import Person2Icon from '@mui/icons-material/Person2';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const pages = ['All Courses', 'Create Course'];
 const settings = ['Logout'];
 
 function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [username,setUsername] = React.useState(null)
+  const authorizationToken = localStorage.getItem('token')
+
+
   
   const navigate = useNavigate();
   
@@ -47,6 +52,33 @@ function NavigationBar() {
     localStorage.removeItem('token')
     navigate('/login')
   }
+
+  const config = {
+    method:'GET',
+    url:'http://localhost:3000/admin/me',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization': `Bearer ${authorizationToken}`
+    }
+  }
+  React.useEffect(()=>{
+    
+    axios(config)
+      .then(response=>{
+        console.log('control in axios request')
+        console.log(response.data)
+        console.log(response.data.username)
+        console.log('control after axios')
+        if(response.data.username){
+          setUsername(response.data.username)
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+
+  },[])
+  
   return (
     <AppBar position="static">
       <Container maxWidth="100vw">
@@ -85,6 +117,8 @@ function NavigationBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={()=>handleMenuItemNavigate(page)}>
+                  
+                  
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -156,11 +190,15 @@ function NavigationBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <Typography textAlign="center">{username}</Typography>
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={onLogout}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              
+                  
+                
             </Menu>
           </Box>
         </Toolbar>
@@ -168,4 +206,6 @@ function NavigationBar() {
     </AppBar>
   );
 }
+
+
 export default NavigationBar;

@@ -10,6 +10,9 @@ import CreateCourse from './components/CreateCourse'
 import EditCourse from './components/EditCourse'
 import { Box } from '@mui/material'
 
+
+
+
 function App() {
  
   const location = useLocation()
@@ -18,7 +21,9 @@ function App() {
   
 
   return (
+    
     <Box>
+       
       {shouldShowNavigationBar&&<NavigationBar/>}
       
       <Routes>
@@ -31,6 +36,7 @@ function App() {
       </Routes>
       
     </Box>
+    
   )
 }
 
