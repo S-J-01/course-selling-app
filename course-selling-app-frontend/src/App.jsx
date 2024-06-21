@@ -9,6 +9,7 @@ import NavigationBar from './components/NavigationBar'
 import CreateCourse from './components/CreateCourse'
 import EditCourse from './components/EditCourse'
 import { Box } from '@mui/material'
+import { RecoilRoot } from 'recoil'
 
 
 
@@ -21,7 +22,7 @@ function App() {
   
 
   return (
-    
+    <RecoilRoot>
     <Box>
        
       {shouldShowNavigationBar&&<NavigationBar/>}
@@ -36,7 +37,7 @@ function App() {
       </Routes>
       
     </Box>
-    
+    </RecoilRoot>
   )
 }
 
