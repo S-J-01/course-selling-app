@@ -1,19 +1,39 @@
-import { Box, IconButton } from "@mui/material"
-import Brightness3Icon from '@mui/icons-material/Brightness3';
+import { Box, IconButton, Typography } from "@mui/material"
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import Button from '@mui/material/Button';
 
-function Appbar({isDarkMode,toggleDarkMode}){
+function Appbar({isDarkMode,setDarkMode}){
+
+    const toggleDarkMode=()=>{
+        setDarkMode(!isDarkMode)
+      }
     return(
         <>
            <Box
            sx={{
-            width:{xs:'100%'},
-            height:'10%'
+            width:'100%',
+            display:'flex',
+            justifyContent:'space-between',
+            border:'1px solid red'
            }}
            >
+            <Box>
+                <Typography variant="h4">
+                Course Selling Application
+                </Typography>
+            </Box>
+
+            <Box>
+            <Button variant="contained" sx={{margin:'4px'}}>Login</Button>
+            <Button variant="contained" sx={{margin:'4px'}}>Sign Up</Button>
             <IconButton onClick={toggleDarkMode}>
-                {isDarkMode?<Brightness3Icon/>:<LightModeIcon/>}
+                {isDarkMode?<DarkModeIcon/>:<LightModeIcon/>}
             </IconButton>
+            </Box>
+            
+
+
            </Box>
         </>
     )
