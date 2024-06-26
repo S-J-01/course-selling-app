@@ -13,6 +13,7 @@ function Appbar({isDarkMode,setDarkMode}){
            <Box
            sx={{
             width:'100%',
+            height:'5%',
             display:'flex',
             justifyContent:'space-between',
             border:'1px solid red'
@@ -26,7 +27,7 @@ function Appbar({isDarkMode,setDarkMode}){
 
             <Box>
             <Button variant="contained" sx={{margin:'4px'}}>Login</Button>
-            <Button variant="contained" sx={{margin:'4px'}}>Sign Up</Button>
+            <Button variant="text" sx={{margin:'4px'}}>Sign Up</Button>
             <IconButton onClick={toggleDarkMode}>
                 {isDarkMode?<DarkModeIcon/>:<LightModeIcon/>}
             </IconButton>

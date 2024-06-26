@@ -22,7 +22,9 @@ function App() {
     <div
     style={{
       height:'100vh',
-      width:'100vw'
+      width:'100vw',
+      
+      border:'1px solid green'
     }}>
     <ThemeProvider theme={isDarkMode?darkTheme:lightTheme}>
     <CssBaseline/>

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import {Card} from "@mui/material"
 import {TextField} from "@mui/material"
 
@@ -7,14 +7,21 @@ function Login(){
     return(
         <Box
         sx={{
-            height:'100%',
-            width:'100%'
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            height:'95%',
+            width:'100%',
+            border:'1px solid blue'
         }}
         >
             <Card
             sx={{
+                display:'flex',
+                flexDirection:'column',
                 width:'25%',
-                height:'25%'
+                
+                
             }}
             >
                
@@ -41,6 +48,7 @@ function Login(){
                    
                 }}
             />    
+            <Button variant="contained" >Login</Button>
             </Card>    
             
         </Box>
