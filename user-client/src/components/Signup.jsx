@@ -27,17 +27,18 @@ function Signup(){
             password:password
         }
     }
-    const onSignup = ()=>{
-     axios(config)
-     .then(response=>{
+    const onSignup = async ()=>{
+     const response =await axios(config)
+     try{
         localStorage.setItem('userAccessToken',response.data.token)
         setUsername('')
         setPassword('')
         navigate('/courses')
-     })
-     .catch(err=>{
+     }
+     catch(err){
         console.log(err)
-     })
+     }
+     
     }
     return(
         <Box

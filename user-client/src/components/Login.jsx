@@ -29,17 +29,18 @@ function Login(){
         }
     }
 
-    const onLogin = ()=>{
-        axios(config)
-        .then(response=>{
-            localStorage.setItem('userAccessToken',response.data.token)
-            setUsername('')
-            setPassword('')
-            navigate('/courses')
-        })
-        .catch(err=>{
+    const onLogin = async()=>{
+       try{
+        const response = await axios(config)
+        localStorage.setItem('userAccessToken',response.data.token)
+        setUsername('')
+        setPassword('')
+        navigate('/courses')
+       }
+        catch (err){
             console.log(err)
-        })
+        }
+        
     }
 
     return(
