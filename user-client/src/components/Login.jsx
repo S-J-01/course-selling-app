@@ -1,8 +1,46 @@
 import { Box, Button } from "@mui/material"
 import {Card} from "@mui/material"
 import {TextField} from "@mui/material"
-
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { BASE_URL } from "../config"
 function Login(){
+
+    const [username,setUsername]=useState('')
+    const [password,setPassword]=useState('')
+    const navigate =useNavigate()
+
+    const handleUsernameChange = (event)=>{
+        setUsername(event.target.value)
+    }
+
+    const handlePasswordChange = (event)=>{
+        setPassword(event.target.value)
+    }
+
+    const config = {
+        method:'post',
+        url:`${BASE_URL}/users/login`,
+        headers:{
+            'Content-Type':'application/json',
+            'username': username,
+            'password' : password
+        }
+    }
+
+    const onLogin = ()=>{
+        axios(config)
+        .then(response=>{
+            localStorage.setItem('userAccessToken',response.data.token)
+            setUsername('')
+            setPassword('')
+            navigate('/courses')
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
 
     return(
         <Box
@@ -34,6 +72,9 @@ function Login(){
                     width:'100%'
                   
                 }}
+
+                value={username}
+                onChange={handleUsernameChange}
             />   
             
             <TextField
@@ -47,8 +88,11 @@ function Login(){
                     width:'100%'
                    
                 }}
+
+                value={password}
+                onChange={handlePasswordChange}
             />    
-            <Button variant="contained" >Login</Button>
+            <Button variant="contained" onClick={onLogin} >Login</Button>
             </Card>    
             
         </Box>
