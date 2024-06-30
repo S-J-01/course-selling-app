@@ -1,5 +1,5 @@
 import {Routes,Route} from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,6 +13,9 @@ import Appbar from './components/Appbar'
 import Courses from './components/Courses'
 import Box from '@mui/material/Box'
 import { lightTheme,darkTheme } from './themes'
+import axios from 'axios'
+import { useSetRecoilState } from 'recoil'
+import { userState } from './store/atoms/user'
 function App() {
   
   const[isDarkMode,setDarkMode] = useState(false)
@@ -30,6 +33,7 @@ function App() {
     <ThemeProvider theme={isDarkMode?darkTheme:lightTheme}>
     <CssBaseline/>
     <Appbar setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
+    <InitUser/>
      <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={<Login/>}/>
@@ -38,6 +42,48 @@ function App() {
      </Routes>
      </ThemeProvider>
     </div>
+  )
+}
+
+function InitUser (){
+const setUser = useSetRecoilState(userState)
+
+const init = async ()=>{
+  try{
+  const response= await axios({
+    method:'get',
+    url:`${BASE_URL}/users/me`,
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+localStorage.getItem('userAccessToken')
+    }
+  })
+
+  if(response.data.username){
+    setUser({
+      isLoading:false,
+      username:response.data.username
+    })
+  }
+  else{
+    setUser({
+      isLoading:false,
+      username:null
+    })
+  }
+}
+ catch(err){
+  setUser({
+    isLoading:false,
+    username:null
+  })
+ }
+}
+useEffect(()=>{
+init()
+},[])
+  return(
+    <></>
   )
 }
 
