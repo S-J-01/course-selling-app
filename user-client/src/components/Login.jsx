@@ -5,11 +5,14 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../config"
+import { useSetRecoilState } from "recoil"
+import { userState } from "../store/atoms/user"
 function Login(){
 
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
     const navigate =useNavigate()
+    const setUser = useSetRecoilState(userState)
 
     const handleUsernameChange = (event)=>{
         setUsername(event.target.value)
@@ -33,6 +36,10 @@ function Login(){
        try{
         const response = await axios(config)
         localStorage.setItem('userAccessToken',response.data.token)
+        setUser({
+            isLoading:false,
+            username:username
+        })
         setUsername('')
         setPassword('')
         navigate('/courses')

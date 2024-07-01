@@ -14,7 +14,7 @@ import Courses from './components/Courses'
 import Box from '@mui/material/Box'
 import { lightTheme,darkTheme } from './themes'
 import axios from 'axios'
-import { useSetRecoilState } from 'recoil'
+import { RecoilRoot, useSetRecoilState } from 'recoil'
 import { userState } from './store/atoms/user'
 function App() {
   
@@ -23,6 +23,7 @@ function App() {
  
 
   return (
+   
     <div
     style={{
       height:'100vh',
@@ -32,8 +33,9 @@ function App() {
     }}>
     <ThemeProvider theme={isDarkMode?darkTheme:lightTheme}>
     <CssBaseline/>
-    <Appbar setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
     <InitUser/>
+    <Appbar setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
+    
      <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={<Login/>}/>
@@ -42,6 +44,7 @@ function App() {
      </Routes>
      </ThemeProvider>
     </div>
+    
   )
 }
 

@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export const userState = atom({
-    key: userState,
+    key: 'userState',
     default:{
         isLoading:true,
         username:null
