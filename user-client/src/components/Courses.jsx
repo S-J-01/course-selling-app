@@ -132,7 +132,23 @@ else{
                         </Box>
 
 
-                        <Button variant="contained">Buy Course</Button>
+                        <Button variant="contained" onClick={async()=>{
+                            try{
+                                const response = await axios({
+                              method:'post',
+                              url:`${BASE_URL}/users/courses/${courseObj.courseID}}`,
+                              headers:{
+                                  'Content-Type':'application/json',
+                                  'Authorization':`Bearer ${localStorage.getItem('userAccessToken')}`
+                              }  
+                            })
+                            alert(response.message)
+                        }
+                        catch(err){
+                            console.log('axios request to buy course failed')
+                            console.log(err)
+                        }
+                        }}>Buy Course</Button>
                     </Card>
                 )
             })}

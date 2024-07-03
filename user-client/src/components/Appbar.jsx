@@ -61,6 +61,7 @@ function Appbar({isDarkMode,setDarkMode}){
             </Box>
 
             <Box>
+            <Button variant="text" sx={{margin:'4px'}} >Purchased Courses</Button>
             <Button variant="text" sx={{margin:'4px'}} >{userUsername}</Button>
             <Button variant="contained" sx={{margin:'4px'}} onClick={onLogout}>Logout</Button>
             <IconButton onClick={toggleDarkMode}>
