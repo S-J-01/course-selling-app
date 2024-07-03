@@ -16,6 +16,7 @@ import { lightTheme,darkTheme } from './themes'
 import axios from 'axios'
 import { RecoilRoot, useSetRecoilState } from 'recoil'
 import { userState } from './store/atoms/user'
+import PurchasedCourses from './components/purchasedCourses'
 function App() {
   
   const[isDarkMode,setDarkMode] = useState(false)
@@ -41,6 +42,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/courses' element={<Courses/>}/>
+      <Route path='/purchasedCourses' element={<PurchasedCourses/>}/>
      </Routes>
      </ThemeProvider>
     </div>
