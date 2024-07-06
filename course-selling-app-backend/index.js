@@ -206,6 +206,7 @@ app.get('/users/courses',authenticateUserJwtToken, (req, res) => {
 
 app.post('/users/courses/:courseId',authenticateUserJwtToken, (req, res) => {
   // logic to purchase a course
+  console.log('control inside purchase course endpoint')
   var courseID = req.params.courseId;
   var loggedInUser = req.user;
   console.log('this is logged in user',loggedInUser);
@@ -245,6 +246,14 @@ app.get('/users/purchasedCourses',authenticateUserJwtToken, (req, res) => {
   })
   //res.status(200).json({purchasedCourses:req.user.purchasedCourses});
 });
+
+app.get('/users/me',authenticateUserJwtToken,(req,res)=>{
+  //logic to get the username if user is logged in and render the navigation bar accordingly
+ 
+  var user = req.user
+  res.status(200).json({username:user.username})
+ })
+
 
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
