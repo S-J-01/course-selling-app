@@ -3,6 +3,9 @@ import { purchasedCoursesState } from "../store/atoms/purchasedCourses"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { BASE_URL } from "../config"
+import axios from "axios"
+import { Box } from "@mui/material"
+import {Card} from "@mui/material"
 
 function PurchasedCourses (){
 
@@ -42,7 +45,7 @@ else {
             display:'flex',
             flexDirection:'row',
             width:'100vw',
-            height:'100vh',
+            height:'95vh',
             margin:0,
             padding:0,
             border:'1px solid black',

@@ -45,7 +45,7 @@ else{
             display:'flex',
             flexDirection:'row',
             width:'100vw',
-            height:'100vh',
+            height:'95vh',
             margin:0,
             padding:0,
             border:'1px solid black',
@@ -136,13 +136,13 @@ else{
                             try{
                                 const response = await axios({
                               method:'post',
-                              url:`${BASE_URL}/users/courses/${courseObj.courseID}}`,
+                              url:`${BASE_URL}/users/courses/${courseObj.courseID}`,
                               headers:{
                                   'Content-Type':'application/json',
                                   'Authorization':`Bearer ${localStorage.getItem('userAccessToken')}`
                               }  
                             })
-                            alert(response.message)
+                            alert(response.data.message)
                         }
                         catch(err){
                             console.log('axios request to buy course failed')

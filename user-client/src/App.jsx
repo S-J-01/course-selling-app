@@ -16,7 +16,7 @@ import { lightTheme,darkTheme } from './themes'
 import axios from 'axios'
 import { RecoilRoot, useSetRecoilState } from 'recoil'
 import { userState } from './store/atoms/user'
-import PurchasedCourses from './components/purchasedCourses'
+import PurchasedCourses from './components/PurchasedCourses'
 function App() {
   
   const[isDarkMode,setDarkMode] = useState(false)
