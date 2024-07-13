@@ -1,6 +1,11 @@
 const express = require('express')
-
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+const USER = require('../db/user')
+const COURSE = require('../db/course')
+const {userAuthentication,authenticateUserJwtToken}= require('../middleware/auth')
 
 router.post('/signup', (req, res) => {
     // logic to sign up user
