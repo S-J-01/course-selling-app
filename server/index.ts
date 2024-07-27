@@ -1,14 +1,15 @@
 
-const express = require('express')
+import express from 'express'
 const app= express()
-const cors = require('cors')
-require('dotenv').config()
-const mongoose = require('mongoose')
+import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config()
+import mongoose from 'mongoose'
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.mloyycz.mongodb.net/course_app_database?retryWrites=true&w=majority&appName=Cluster0`)
 app.use(cors())
 app.use(express.json())
-const adminRouter = require('./routes/admin')
-const userRouter = require('./routes/user')
+import adminRouter from './routes/admin'
+import userRouter from './routes/user'
 
 
 

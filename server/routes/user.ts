@@ -1,13 +1,16 @@
-const express = require('express')
+import  express, {Request,Response} from 'express'
 const router = express.Router()
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const USER = require('../db/user')
-const COURSE = require('../db/course')
-const {userAuthentication,authenticateUserJwtToken}= require('../middleware/auth')
+import USER from '../db/user'
+import COURSE from '../db/course'
+import auth from '../middleware/auth'
+const {userAuthentication,authenticateUserJwtToken}= auth
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret'
 
-router.post('/signup', (req, res) => {
+router.post('/signup', (req:Request, res:Response) => {
     // logic to sign up user
     
     const newUser = new USER({
@@ -20,18 +23,18 @@ router.post('/signup', (req, res) => {
       console.log('new user saved in database',resp);
     })
   
-    var accessToken = jwt.sign(newUser.toObject(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'});
+    var accessToken = jwt.sign(newUser.toObject(),accessTokenSecret,{expiresIn:'1h'});
     res.status(200).json({message:'user signed up successfully',token:accessToken});
   
   });
   
-  router.post('/login',userAuthentication, (req, res) => {
+  router.post('/login',userAuthentication, (req:Request, res:Response) => {
     // logic to log in user
-    var accessToken = jwt.sign(req.user, process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'});
+    var accessToken = jwt.sign(req.user, accessTokenSecret,{expiresIn:'1h'});
     res.status(200).json({message:'user logged in successfully',token:accessToken});
   });
   
-  router.get('/courses',authenticateUserJwtToken, (req, res) => {
+  router.get('/courses',authenticateUserJwtToken, (req:Request, res:Response) => {
     // logic to list all courses
     COURSE.find()
     .then((course)=>{
@@ -39,7 +42,7 @@ router.post('/signup', (req, res) => {
     })
   });
   
-  router.post('/courses/:courseId',authenticateUserJwtToken, (req, res) => {
+  router.post('/courses/:courseId',authenticateUserJwtToken, (req:Request, res:Response) => {
     // logic to purchase a course
     console.log('control inside purchase course endpoint')
     var courseID = req.params.courseId;
@@ -71,22 +74,28 @@ router.post('/signup', (req, res) => {
     })
   });
   
-  router.get('/purchasedCourses',authenticateUserJwtToken, (req, res) => {
+  router.get('/purchasedCourses',authenticateUserJwtToken, (req:Request, res:Response) => {
     // logic to view purchased courses
     USER.findOne({username:req.user.username,password:req.user.password})
     .populate('purchasedCourses')
     .then(user=>{
-      console.log('user found in DB');
-      res.status(200).json({purchasedCourses:user.purchasedCourses});
+      if(user){
+        console.log('user found in DB');
+        res.status(200).json({purchasedCourses:user.purchasedCourses});
+      }else{
+        console.log('user is null')
+        res.status(404).json({message:'user not found'})
+      }
+      
     })
     //res.status(200).json({purchasedCourses:req.user.purchasedCourses});
   });
   
-  router.get('/me',authenticateUserJwtToken,(req,res)=>{
+  router.get('/me',authenticateUserJwtToken,(req:Request,res:Response)=>{
     //logic to get the username if user is logged in and render the navigation bar accordingly
    
     var user = req.user
     res.status(200).json({username:user.username})
    })
 
-   module.exports = router
+   export default router

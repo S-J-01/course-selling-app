@@ -1,13 +1,17 @@
 
-const express= require('express')
+import express,{Request,Response} from 'express'
 const router = express.Router()
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
-const ADMIN = require('../db/admin')
-const COURSE = require('../db/course')
-const { adminAuthentication,authenticateAdminJwtToken}=require('../middleware/auth')
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
+import ADMIN from '../db/admin'
+import COURSE from '../db/course'
+import auth from '../middleware/auth'
+const { adminAuthentication, authenticateAdminJwtToken} =auth;
 
-router.post('/signup', (req, res) => {
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret'
+
+router.post('/signup', (req:Request, res:Response) => {
     // logic to sign up admin
     const newAdmin = new ADMIN({
      username : req.body.username,
@@ -18,18 +22,18 @@ router.post('/signup', (req, res) => {
       console.log('newly signed up admin saved to DB',resp);
     })
   
-    var accessToken = jwt.sign(newAdmin.toObject(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'});
+    var accessToken = jwt.sign(newAdmin.toObject(),accessTokenSecret,{expiresIn:'1h'});
     res.status(200).json({message:'admin signed up successfully',token:accessToken});
   });
   
-  router.post('/login',adminAuthentication, (req, res) => {
+  router.post('/login',adminAuthentication, (req:Request, res:Response) => {
     // logic to log in admin
     var admin = req.admin;
-    var accessToken = jwt.sign(admin,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'});
+    var accessToken = jwt.sign(admin,accessTokenSecret,{expiresIn:'1h'});
     res.status(200).json({message:'admin login successful', token:accessToken});
   });
   
-  router.post('/courses',authenticateAdminJwtToken, (req, res) => {
+  router.post('/courses',authenticateAdminJwtToken, (req:Request, res:Response) => {
     // logic to create a course
     const newCourse = new COURSE({
       title : req.body.title,
@@ -45,7 +49,7 @@ router.post('/signup', (req, res) => {
     res.status(200).json({message:'course created successfully', courseID:newCourse.courseID});
   });
   
-  router.put('/courses/:courseId',authenticateAdminJwtToken, (req, res) => {
+  router.put('/courses/:courseId',authenticateAdminJwtToken, (req:Request, res:Response) => {
     // logic to edit a course
     var courseID= req.params.courseId;
     COURSE.findOne({courseID:courseID})
@@ -72,7 +76,7 @@ router.post('/signup', (req, res) => {
   
   });
   
-  router.get('/courses',authenticateAdminJwtToken, (req, res) => {
+  router.get('/courses',authenticateAdminJwtToken, (req:Request, res:Response) => {
     // logic to get all courses
     COURSE.find()
     .then((course)=>{
@@ -81,11 +85,11 @@ router.post('/signup', (req, res) => {
   });
   
   
-  router.get('/me',authenticateAdminJwtToken,(req,res)=>{
+  router.get('/me',authenticateAdminJwtToken,(req:Request,res:Response)=>{
    //logic to get the username if admin is logged in and render the navigation bar accordingly
   
    var admin = req.admin
    res.status(200).json({username:admin.username})
   })
 
-  module.exports=router
+  export default router

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose  from 'mongoose';
 const courseSchema = new mongoose.Schema({
 
     title:{
@@ -20,4 +20,4 @@ const courseSchema = new mongoose.Schema({
         type:Number
     }
 });
-module.exports = mongoose.model('COURSE',courseSchema);
+export default mongoose.model('COURSE',courseSchema);

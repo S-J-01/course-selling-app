@@ -1,10 +1,14 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const ADMIN = require('../db/admin')
-const USER = require('../db/user')
+import { Request,Response,NextFunction } from 'express';
+import jwt  from 'jsonwebtoken';
+import dotenv from 'dotenv'
+dotenv.config();
+import ADMIN from '../db/admin'
+import USER from '../db/user'
 
 
-var adminAuthentication = (req, res, next) => {
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret'
+
+var adminAuthentication = (req:Request, res:Response, next:NextFunction) => {
     var username = req.headers.username;
     var password  = req.headers.password;
     console.log(req.body);
@@ -26,11 +30,11 @@ var adminAuthentication = (req, res, next) => {
     })
   };
   
-  var authenticateAdminJwtToken = (req,res,next)=>{
+  var authenticateAdminJwtToken = (req:Request,res:Response,next:NextFunction)=>{
     var authHeader = req.headers.authorization;
     var token = authHeader && authHeader.split(' ')[1];
     if(token){
-    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,admin)=>{
+      jwt.verify(token,accessTokenSecret,(err,admin)=>{
      if (err) {
        res.status(403).json({message:'invalid token'});
   
@@ -44,7 +48,7 @@ var adminAuthentication = (req, res, next) => {
    }
    };
   
-  var userAuthentication = (req,res,next)=>{
+  var userAuthentication = (req:Request,res:Response,next:NextFunction)=>{
     console.log('control at userAuthentication');
    USER.findOne({username:req.headers.username, password:req.headers.password})
    .then((user)=>{
@@ -62,11 +66,11 @@ var adminAuthentication = (req, res, next) => {
    })
   };
   
-  var authenticateUserJwtToken = (req,res,next)=>{
+  var authenticateUserJwtToken = (req:Request,res:Response,next:NextFunction)=>{
     var authHeader = req.headers.authorization;
     var token = authHeader && authHeader.split(' ')[1];
     if(token){
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user)=>{
+      jwt.verify(token, accessTokenSecret, (err,user)=>{
         if(err){
           res.status(403).json({message:'invalid jwt token'});
         }else{
@@ -81,7 +85,7 @@ var adminAuthentication = (req, res, next) => {
     }
   }
 
-  module.exports ={
+  export default{
     adminAuthentication,
     authenticateAdminJwtToken,
     userAuthentication,
