@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+//import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Register from './components/Register'
+import Login from './components/Login'
+import AllCourses from './components/AllCourses'
+import NavigationBar from './components/NavigationBar'
+import CreateCourse from './components/CreateCourse'
+import EditCourse from './components/EditCourse'
+import { Box } from '@mui/material'
+import { RecoilRoot } from 'recoil'
+
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
+  const location = useLocation()
+  const pathsWithNavigationBar = ['/all-courses', '/create-course', '/all-courses/:courseID']
+  const shouldShowNavigationBar = pathsWithNavigationBar.some(path => location.pathname.startsWith(path))
+  
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <RecoilRoot>
+    <Box>
+       
+      {shouldShowNavigationBar&&<NavigationBar/>}
+      
+      <Routes>
+        <Route path='/' element={<Register/>}></Route>
+        <Route path = '/login' element={<Login/>}></Route>
+        <Route path = '/all-courses' element={<AllCourses/>}></Route>
+        <Route path = '/create-course' element={<CreateCourse/>}></Route>
+        <Route path = '/all-courses/:courseID' element={<EditCourse/>}></Route>
+        
+      </Routes>
+      
+    </Box>
+    </RecoilRoot>
   )
 }
 
