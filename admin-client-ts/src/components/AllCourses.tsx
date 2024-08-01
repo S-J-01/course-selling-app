@@ -3,10 +3,17 @@ import { Box, Button } from "@mui/material"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-
+type Course = {
+    title:string,
+    description:string,
+    price:number,
+    imageLink:string,
+    published:boolean,
+    courseID:number
+}
 function AllCourses(){
     
-    const[courses,setCourses] = useState([])
+    const[courses,setCourses] = useState<Course[]>([])
     const navigate = useNavigate()
     const authorizationToken = localStorage.getItem('token')
 
@@ -46,7 +53,7 @@ function AllCourses(){
             flexWrap:'wrap'
          }}
         >
-         {courses.map((courseObj)=>{
+         {courses.map((courseObj:Course)=>{
             return(
                     <Box key={courseObj.courseID}
                          sx={{
