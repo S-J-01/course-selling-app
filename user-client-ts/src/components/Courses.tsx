@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { courseState } from "../store/atoms/courses"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState } from "recoil"
 import axios from "axios"
 import { BASE_URL } from "../config"
 import { useNavigate } from "react-router-dom"

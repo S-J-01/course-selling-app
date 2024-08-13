@@ -14,11 +14,11 @@ function Signup(){
     const [password,setPassword] = useState('')
     const setUser = useSetRecoilState(userState)
 
-    const handleUsernameChange = (event)=>{
+    const handleUsernameChange = (event : React.ChangeEvent<HTMLInputElement>)=>{
         setUsername(event.target.value)
     }
 
-    const handlePasswordChange = (event)=>{
+    const handlePasswordChange = (event : React.ChangeEvent<HTMLInputElement>)=>{
         setPassword(event.target.value)
     }
 

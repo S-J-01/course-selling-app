@@ -8,7 +8,12 @@ import { userIsLoading } from "../store/selectors/userIsLoading";
 import { userStateUsername } from "../store/selectors/userStateUsername";
 import { useNavigate } from "react-router-dom";
 
-function Appbar({isDarkMode,setDarkMode}){
+interface AppbarProps{
+  isDarkMode: boolean;
+  setDarkMode: (value: boolean)=>void;
+}
+
+function Appbar({isDarkMode,setDarkMode}: AppbarProps){
 
     const toggleDarkMode=()=>{
         setDarkMode(!isDarkMode)

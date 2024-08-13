@@ -1,6 +1,12 @@
 import { atom } from "recoil";
+import { Course } from "../../types/course";
 
-export const purchasedCoursesState = atom({
+interface purchasedCoursesState{
+    isLoading: boolean;
+    allPurchasedCourses: Course[];
+}
+
+export const purchasedCoursesState = atom<purchasedCoursesState>({
     key:'purchasedCoursesState',
     default:{
         isLoading:true,
