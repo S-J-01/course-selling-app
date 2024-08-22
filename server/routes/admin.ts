@@ -7,15 +7,25 @@ dotenv.config()
 import ADMIN from '../db/admin'
 import COURSE from '../db/course'
 import auth from '../middleware/auth'
+import {z} from 'zod'
 const { adminAuthentication, authenticateAdminJwtToken} =auth;
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret'
+let signupInputProp = z.object({
+  username: z.string().min(1),
+  password: z.string().min(1)
+})
 
 router.post('/signup', (req:Request, res:Response) => {
     // logic to sign up admin
+    const parsedInput = signupInputProp.safeParse(req.body)
+    if(!parsedInput.success){
+      return res.status(411).json({message:parsedInput.error})
+    }
+
     const newAdmin = new ADMIN({
-     username : req.body.username,
-     password : req.body.password
+     username : parsedInput.data.username,
+     password : parsedInput.data.password
     });
   
     newAdmin.save().then(resp=>{
