@@ -11,13 +11,18 @@ dotenv_1.default.config();
 const user_1 = __importDefault(require("../db/user"));
 const course_1 = __importDefault(require("../db/course"));
 const auth_1 = __importDefault(require("../middleware/auth"));
+const common_1 = require("@shreyasjaltare/common");
 const { userAuthentication, authenticateUserJwtToken } = auth_1.default;
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret';
 router.post('/signup', (req, res) => {
     // logic to sign up user
+    const parsedInput = common_1.signupInputProp.safeParse(req.body);
+    if (!parsedInput.success) {
+        return res.status(411).json({ message: parsedInput.error });
+    }
     const newUser = new user_1.default({
-        username: req.body.username,
-        password: req.body.password,
+        username: parsedInput.data.username,
+        password: parsedInput.data.password,
         purchasedCourses: []
     });
     newUser.save().then((resp) => {

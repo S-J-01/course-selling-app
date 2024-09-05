@@ -7,6 +7,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@shreyasjaltare/common": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -20,8 +21,8 @@
     "@types/mongoose": "^5.11.96",
     "@types/node": "^20.14.12"
   },
-  "scripts":{
-    "build":"tsc && cp .env dist/",
+  "scripts": {
+    "build": "tsc && cp .env dist/",
     "start": "node dist/index.js"
   }
 }

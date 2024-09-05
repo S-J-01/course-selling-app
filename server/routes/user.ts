@@ -8,13 +8,13 @@ import USER from '../db/user'
 import COURSE from '../db/course'
 import auth from '../middleware/auth'
 import {z} from 'zod'
+import { signupInputProp } from '@shreyasjaltare/common'
+
 const {userAuthentication,authenticateUserJwtToken}= auth
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret'
 
-let signupInputProp = z.object({
-  username:z.string().min(1),
-  password:z.string().min(1)
-})
+
+
 router.post('/signup', (req:Request, res:Response) => {
     // logic to sign up user
     const parsedInput = signupInputProp.safeParse(req.body)

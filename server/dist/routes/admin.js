@@ -11,13 +11,18 @@ dotenv_1.default.config();
 const admin_1 = __importDefault(require("../db/admin"));
 const course_1 = __importDefault(require("../db/course"));
 const auth_1 = __importDefault(require("../middleware/auth"));
+const common_1 = require("@shreyasjaltare/common");
 const { adminAuthentication, authenticateAdminJwtToken } = auth_1.default;
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'default_secret';
 router.post('/signup', (req, res) => {
     // logic to sign up admin
+    const parsedInput = common_1.signupInputProp.safeParse(req.body);
+    if (!parsedInput.success) {
+        return res.status(411).json({ message: parsedInput.error });
+    }
     const newAdmin = new admin_1.default({
-        username: req.body.username,
-        password: req.body.password
+        username: parsedInput.data.username,
+        password: parsedInput.data.password
     });
     newAdmin.save().then(resp => {
         console.log('newly signed up admin saved to DB', resp);
